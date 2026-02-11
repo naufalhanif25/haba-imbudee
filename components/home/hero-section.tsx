@@ -1,12 +1,17 @@
 import { useRouter } from "next/navigation";
+import { useRef } from "react";
 import Slideshow from "../slideshow";
 
 export default function HeroSection() {
     const router = useRouter();
+    const heroRef = useRef<HTMLDivElement>(null);
 
     return (
         // TODO: Gunakan gambar yang valid
-        <section className="min-h-screen w-screen h-fit relative flex bg-emerald-700 items-center justify-center">
+        <section 
+            ref={heroRef} 
+            className="min-h-screen w-screen h-fit relative flex bg-emerald-700 items-center justify-center"
+        >
             <Slideshow className="w-full h-full absolute top-0 left-0 flex items-center justify-center">
                 <div className="w-full h-full bg-red-500"></div>
                 <div className="w-full h-full bg-green-500"></div>
@@ -24,8 +29,10 @@ export default function HeroSection() {
                 <div className="w-fit h-fit flex items-center justofy-center gap-4">
                     <button 
                         onClick={() => {
+                            const rect = heroRef.current?.getBoundingClientRect() ;
+                            
                             window.scrollBy({
-                                top: window.innerHeight - 64,
+                                top: rect?.bottom || 0,
                                 behavior: "smooth",
                             });
                         }}
