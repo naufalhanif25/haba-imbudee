@@ -1,6 +1,9 @@
+import { useRouter } from "next/navigation";
 import Slideshow from "../slideshow";
 
 export default function HeroSection() {
+    const router = useRouter();
+
     return (
         // TODO: Gunakan gambar yang valid
         <section className="min-h-screen w-screen h-fit relative flex bg-emerald-700 items-center justify-center">
@@ -19,7 +22,21 @@ export default function HeroSection() {
                     </h2>
                 </div>
                 <div className="w-fit h-fit flex items-center justofy-center gap-4">
-                    <button className="w-40 px-6 py-2 text-white bg-amber-500 rounded-full hover:bg-amber-600 transition duration-100">
+                    <button 
+                        onClick={() => {
+                            window.scrollBy({
+                                top: window.innerHeight - 64,
+                                behavior: "smooth",
+                            });
+                        }}
+                        className="w-40 px-6 py-2 text-white bg-emerald-500 rounded-full hover:bg-emerald-600 transition duration-100"
+                    >
+                        Jelajahi
+                    </button>
+                    <button 
+                        onClick={() => router.push("/surat")}
+                        className="w-40 px-6 py-2 text-white bg-amber-500 rounded-full hover:bg-amber-600 transition duration-100"
+                    >
                         Buat Surat
                     </button>
                 </div>
