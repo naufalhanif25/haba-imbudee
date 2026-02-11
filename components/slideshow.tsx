@@ -35,21 +35,37 @@ export default function Slideshow({
             {...props} 
             className={`${className}`}
         >
-            {slides.map((child, index) => {
-                return (
-                    <div 
-                        key={index} 
-                        className={`absolute w-full h-full transition-opacity duration-500 ${
-                            index === slideIndex 
-                                ? "opacity-100" 
-                                : "opacity-0"
-                            }`
-                        }
-                    >
-                        {child}
-                    </div>
-                )
-            })}
+            <div className="w-full h-full flex items-center justify-center">
+                {slides.map((child, index) => {
+                    return (
+                        <div 
+                            key={index} 
+                            className={`absolute w-full h-full transition-opacity duration-500 ${
+                                index === slideIndex 
+                                    ? "opacity-100" 
+                                    : "opacity-0"
+                                }`
+                            }
+                        >
+                            {child}
+                        </div>
+                    )
+                })}
+            </div>
+            <div className="w-fit h-fit flex gap-2 absolute z-2 bottom-12 left-1/2 -translate-x-1/2">
+                {Array.from({ length }).map((_, index) => {
+                    return (
+                        <span 
+                            key={index}
+                            className={`h-2 w-4 bg-white rounded-full transition duration-500 ${
+                                index === (slideIndex % length)
+                                    ? "opacity-100"
+                                    : "opacity-50"
+                            }`}
+                        />
+                    )
+                })}
+            </div>
         </div>
     );
 }
