@@ -73,7 +73,7 @@ export default function Slider({
             <div className="w-fit h-fit flex gap-2 absolute z-2 bottom-6 left-1/2 -translate-x-1/2">
                 {Array.from({ length }).map((_, index) => {
                     return (
-                        <div
+                        <span
                             key={index}
                             className={`size-2 rounded-full bg-white transition duration-500 ${
                                 index === (slideIndex % length)
