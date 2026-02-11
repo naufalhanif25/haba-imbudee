@@ -6,7 +6,7 @@ import FAQSection from "./faq-section";
 
 export default function HomeMainSection() {
     return (
-        <main>
+        <main className="w-screen">
             <HeroSection />
             <ReasonSection />
             <DocsSection />
