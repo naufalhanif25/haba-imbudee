@@ -1,6 +1,6 @@
 "use client";
 
-import Header from "@/components/header";
+import Header from "@/components/header/header";
 import HomeMainSection from "@/components/home/main-section";
 import Footer from "@/components/footer/footer";
 
