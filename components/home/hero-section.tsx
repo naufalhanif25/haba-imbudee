@@ -1,7 +1,5 @@
 import { useRouter } from "next/navigation";
-import { 
-    useRef
-} from "react";
+import { useRef } from "react";
 import Slideshow from "../slideshow";
 
 export default function HeroSection() {
