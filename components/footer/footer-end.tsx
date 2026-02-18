@@ -8,7 +8,7 @@ import { footerIconProps } from "./footer";
 
 export default function FooterEnd() {
     return (
-        <div className="w-screen py-6 px-12 flex md:flex-row flex-col gap-4 items-center md:justify-between justify-center bg-emerald-700">
+        <div className="w-screen py-6 px-12 flex md:flex-row flex-col gap-4 items-center md:justify-between justify-center bg-emerald-500">
             {/* TODO: URL masing-masing media sosial */}
             <span className="flex h-fit w-fit gap-4">
                 <button className="w-fit h-fit">
