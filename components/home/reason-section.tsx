@@ -14,6 +14,7 @@ export default function ReasonSection() {
                         {[
                             "Mudah digunakan",
                             "Proses cepat dan transparan",
+                            "Aman dan terpercaya",
                             "Akses kapan saja dan di mana saja"
                         ].map((value, index) => {
                             return (
