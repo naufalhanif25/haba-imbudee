@@ -1,8 +1,8 @@
+import Image from "next/image";
 import Slider from "../slider";
 
 export default function DocsSection() {
     return (
-        // TODO: Gunakan gambar yang valid
         <section className="flex flex-col items-center justify-center px-16 py-12 gap-8">
             <div className="w-full h-fit max-w-240 flex flex-col items-center justify-center gap-2">
                 <h1 className="text-2xl font-bold sm:text-left text-center">
@@ -15,9 +15,18 @@ export default function DocsSection() {
             </div>
             <div className="w-full max-w-240 h-fit flex items-center justify-center">
                 <Slider className="w-full h-100 rounded-xl">
-                    <div className="w-full h-full bg-red-500"></div>
-                    <div className="w-full h-full bg-green-500"></div>
-                    <div className="w-full h-full bg-yellow-500"></div>
+                    {Array.from({ length: 3 }).map((_, index) => {
+                        return (
+                            <Image 
+                                key={index}
+                                src={`/docs/img${index + 1}.jpeg`}
+                                alt={`Image ${index + 1}`}
+                                width={1080}
+                                height={720}
+                                className="w-full h-full object-cover"
+                            />
+                        );
+                    })}
                 </Slider>
             </div>
         </section>
