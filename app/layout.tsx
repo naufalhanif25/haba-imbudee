@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Lato } from "next/font/google";
 import "./globals.css";
+import 'react-pdf/dist/Page/TextLayer.css';
+import 'react-pdf/dist/Page/AnnotationLayer.css';
 
 const lato = Lato({
     variable: "--font-lato",
@@ -21,7 +23,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body
-                className={`${lato.variable} antialiased overflow-x-hidden`}
+                className={`${lato.variable} antialiased overflow-x-hidden scroll-smooth`}
             >
                 {children}
             </body>
