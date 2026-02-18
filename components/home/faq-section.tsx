@@ -14,7 +14,7 @@ export default function FAQSection() {
                             <ul className="list-disc w-fit h-fit my-4 mx-8">
                                 {[
                                     "Masuk ke halaman buat surat.",
-                                    "Pilih template surat yang ingin Anda gunakan.",
+                                    "Pilih templat surat yang ingin Anda gunakan.",
                                     "Isi data yang diminta pada formulir.",
                                     "Cetak atau unduh PDF dari surat tersebut."
                                 ].map((value, index) => {
