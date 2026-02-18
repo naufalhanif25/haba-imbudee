@@ -1,7 +1,7 @@
 import React from "react";
 import {
     Mails,
-    Megaphone,
+    Globe,
     FilePlusCorner, 
     LucideProps 
 } from "lucide-react";
@@ -24,8 +24,8 @@ export default function FeaturesSection() {
             title: "Buat Surat Instan"
         },
         {
-            icon: <Megaphone {...featureProps}/>,
-            title: "Buat Laporan"
+            icon: <Globe {...featureProps}/>,
+            title: "Telusuri Templat"
         },
         {
             icon: <FilePlusCorner {...featureProps}/>,
