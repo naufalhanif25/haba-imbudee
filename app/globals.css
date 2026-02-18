@@ -3,3 +3,37 @@
 button {
     cursor: pointer;
 }
+
+@media print {
+    html, body {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    body * {
+        visibility: hidden;
+    }
+
+    .print-page,
+    .print-page * {
+        visibility: visible;
+    }
+
+    .print-page {
+        width: 595px !important;
+        height: 842px !important;
+        page-break-after: always;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transform-origin: center;
+    }
+
+    .page-nostyle {
+        padding: 0 !important;
+        margin: 0 !important;
+        border: none !important;
+        outline: none !important;
+        transform: none !important;
+    }
+}
