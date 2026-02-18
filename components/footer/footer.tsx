@@ -1,4 +1,3 @@
-import React from "react";
 import { LucideProps } from "lucide-react";
 import FooterInfo from "./footer-info";
 import FooterEnd from "./footer-end";
