@@ -1,4 +1,5 @@
 import HeroSection from "./hero-section";
+import AboutSection from "./about-section";
 import ReasonSection from "./reason-section";
 import DocsSection from "./docs-section";
 import FeaturesSection from "./features-section";
@@ -8,6 +9,7 @@ export default function HomeMainSection() {
     return (
         <main className="w-screen">
             <HeroSection />
+            <AboutSection />
             <ReasonSection />
             <DocsSection />
             <FeaturesSection />
