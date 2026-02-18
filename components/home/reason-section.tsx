@@ -1,9 +1,9 @@
+import Image from "next/image";
 import { Check } from "lucide-react";
 import Slider from "../slider";
 
 export default function ReasonSection() {
     return (
-        // TODO: Perbaiki alasan mengapa menggunakan HabaImbudee dan gunakan gambar yang valid
         <section className="flex items-center justify-center py-2 md:px-16 px-8">
             <div className="flex sm:flex-row flex-col items-center justify-center w-full max-w-240">
                 <div className="gap-4 py-8 px-4 sm:flex-1 flex flex-col items-start justify-center">
@@ -38,11 +38,13 @@ export default function ReasonSection() {
                     </div>
                 </div>
                 <div className="sm:py-8 py-4 sm:px-0 px-8 flex-1 w-full max-w-120 flex flex-col items-center justify-start">
-                    <Slider className="w-full h-60 rounded-xl">
-                        <div className="w-full h-full bg-red-500"></div>
-                        <div className="w-full h-full bg-green-500"></div>
-                        <div className="w-full h-full bg-yellow-500"></div>
-                    </Slider>
+                    <Image 
+                        src={`/reason/img1.jpg`}
+                        alt={`Image 1`}
+                        width={1080}
+                        height={720}
+                        className="w-full h-60 rounded-xl object-cover brightness-120"
+                    />
                 </div>
             </div>
         </section>
