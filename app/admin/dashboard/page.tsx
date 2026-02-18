@@ -12,8 +12,17 @@ import {
     Home
 } from "lucide-react";
 import axios from "axios";
-import TemplateList from "./(template)/template-list";
-import TemplateNew from "./(template)/template-new";
+import dynamic from "next/dynamic";
+
+const TemplateList = dynamic(
+    () => import("./(template)/template-list"),
+    { ssr: false }
+);
+
+const TemplateNew = dynamic(
+    () => import("./(template)/template-new"),
+    { ssr: false }
+);
 
 type DashboardIconProps = {
     size: number;
