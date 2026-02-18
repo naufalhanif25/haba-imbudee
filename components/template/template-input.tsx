@@ -5,6 +5,7 @@ type TemplateAttrInputProps = React.InputHTMLAttributes<HTMLInputElement> & {
     className?: string;
     type: string;
     required?: boolean;
+    value?: string | number | readonly string[] | undefined;
 }
 
 export default function TemplateInput({
@@ -12,6 +13,7 @@ export default function TemplateInput({
     className,
     type,
     required,
+    value,
     ...props
 }: TemplateAttrInputProps) {
     return (
@@ -30,6 +32,7 @@ export default function TemplateInput({
                 type={type} 
                 className="w-full py-1 border-b-2 outline-none border-gray-400 focus:border-emerald-500 text-md text-nowrap"
                 placeholder={title}
+                value={value}
                 {...props}
             />
         </div>
