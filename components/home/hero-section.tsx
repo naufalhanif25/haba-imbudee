@@ -1,5 +1,6 @@
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
+import Image from "next/image";
 import Slideshow from "../slideshow";
 
 export default function HeroSection() {
@@ -7,15 +8,22 @@ export default function HeroSection() {
     const heroRef = useRef<HTMLDivElement>(null);
 
     return (
-        // TODO: Gunakan gambar yang valid
         <section 
             ref={heroRef} 
             className="min-h-screen w-screen h-fit relative flex bg-emerald-700 items-center justify-center"
         >
-            <Slideshow className="w-full h-full absolute top-0 left-0 flex items-center justify-center">
-                <div className="w-full h-full bg-red-500"></div>
-                <div className="w-full h-full bg-green-500"></div>
-                <div className="w-full h-full bg-yellow-500"></div>
+            <Slideshow className="w-full h-full absolute top-0 left-0 flex items-center justify-center bg-emerald-500">
+                {Array.from({ length: 3 }).map((_, index) => {
+                    return (
+                        <Image 
+                            key={index}
+                            src={`/hero/img${index + 1}.jpeg`}
+                            alt={`Image ${index + 1}`}
+                            className="w-full h-full brightness-50 object-cover"
+                            fill
+                        />
+                    );
+                })}
             </Slideshow>
             <div className="z-2 md:max-w-160 sm:max-w-[50vw] max-w-[80vw] w-fit h-fit gap-y-8 flex flex-col items-center justify-center">
                 <div className="w-fit h-fit flex flex-col gap-y-4">
