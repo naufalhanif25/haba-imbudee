@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { ChevronRight } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 export default function FaqDropdown({
     children,
@@ -25,15 +25,17 @@ export default function FaqDropdown({
             }
         >
             <div className="w-full h-fit py-4 px-6 flex gap-4 items-center bg-emerald-500 rounded-lg">
-                <ChevronRight 
+                <ChevronDown 
                     size={24} 
-                    className={`transition duration-200 ${faqState && "rotate-90"}`}
+                    color="white"
+                    className={`transition duration-300 ${faqState && "-rotate-180"}`}
+                    strokeWidth={2}
                 />
-                <h1 className="text-md text-medium pointer-events-none select-none">
+                <h1 className="text-md font-medium text-white pointer-events-none select-none">
                     {title}
                 </h1>
             </div>
-            <div className={`w-full ${faqState ? "max-h-80" : "max-h-0"} overflow-hidden transition-[max-height] duration-500 ease-in-out`}>
+            <div className={`w-full ${faqState ? "max-h-40" : "max-h-0"} overflow-hidden transition-[max-height] duration-500 ease-in-out`}>
                 {children}
             </div>
         </div>
