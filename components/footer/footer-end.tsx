@@ -33,7 +33,7 @@ export default function FooterEnd() {
                 </button>
             </span>
             <p className="font-medium text-white text-center text-sm">
-                &copy; 2026 Mahasiswa Berdampak. All rights reserved
+                &copy; 2026 KKN Mahasiswa Berdampak Imbudee. All rights reserved
             </p>
         </div>
     );
