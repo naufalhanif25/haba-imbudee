@@ -28,20 +28,20 @@ export default function Header() {
         },
         {
             title: "Buat Surat",
-            route: "/surat"
-        },
-        {
-            title: "Buat Laporan",
-            route: "/lapor"
+            route: "/surat/templat"
         },
         {
             title: "Admin Desa",
-            route: "/admin"
+            route: "/admin/masuk"
         }
     ];
 
     return (
-        <header className="w-full h-fit bg-emerald-500 fixed top-0 left-0 flex flex-col items-center justify-center z-999">
+        <header className={`w-full h-fit bg-emerald-500 fixed top-0 left-0 flex flex-col items-center justify-center z-999 transition-all duration-500 ${
+            menuOpen
+                ? "rounded-b-xl"
+                : "rounded-b-none"
+        }`}>
             <div className="w-full h-16 flex items-center justify-between min-px-4 px-6 min-py-0 py-2">
                 <h1 
                     onClick={() => router.push("/")}
@@ -65,15 +65,19 @@ export default function Header() {
             </div>
             <div className={`w-full h-fit overflow-hidden transition-[max-height] duration-500 ${
                 menuOpen 
-                    ? "max-h-80" 
+                    ? "max-h-40" 
                     : "max-h-0"
             }`}>
-                <div className="flex flex-col gap-2 items-center justify-center mb-4">
+                <div className={`flex flex-col gap-2 items-center justify-center mb-4 px-3 transition-[opacity] duration-500 ${
+                    menuOpen 
+                        ? "opacity-100" 
+                        : "opacity-0"
+                }`}>
                     {headerData.map((value, index) => {
                         return (
                             <button 
                                 key={index} 
-                                className="text-white text-md hover:bg-emerald-600 transition duration-100 w-full py-2 px-4"
+                                className="text-white text-md hover:bg-emerald-600 transition rounded-lg duration-100 w-full py-2 px-4"
                                 onClick={() => {
                                     setMenuOpen(false);
                                     router.push(value.route);
