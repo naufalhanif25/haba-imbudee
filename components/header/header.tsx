@@ -47,7 +47,7 @@ export default function Header() {
                     onClick={() => router.push("/")}
                     className="text-white font-bold text-xl cursor-pointer select-none"
                 >
-                    HabaImbudee
+                    {process.env.NEXT_PUBLIC_PLATFORM_NAME}
                 </h1>
                 <div className="w-fit h-fit gap-6 flex">
                     {!menuOpen ? (
