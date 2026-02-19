@@ -20,7 +20,7 @@ import RightSidebar from "@/components/template/right-sidebar";
 import PlaceholderList from "./placeholder-list";
 import PlaceholderAttr from "./placeholder-attr";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabase";
+import { getSupabaseClient } from "@/lib/supabase";
 import axios from "axios";
 import ScreenLoader from "@/components/template/screen-loader";
 import * as templateProps from "@/app/admin/dashboard/(template)/template-props";
@@ -52,6 +52,7 @@ export default function TemplateNew() {
     const [pagePlaceholders, setPagePlaceholders] = useState<templateProps.PlaceholderElement[][]>([]);
     const [activeElement, setActiveElement] = useState<PageActiveElement | null>(null);
     const [isSaving, setIsSaving] = useState<boolean>(false);
+    const supabase = getSupabaseClient();
 
     useEffect(() => {
         import("react-pdf").then((pdfjsLib) => {

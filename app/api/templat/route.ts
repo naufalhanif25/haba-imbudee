@@ -1,8 +1,9 @@
-import { supabase } from "@/lib/supabase";
+import { getSupabaseClient } from "@/lib/supabase";
 import { NextResponse, NextRequest } from "next/server";
 import { TemplateData } from "@/app/admin/dashboard/(template)/template-props";
 
 export async function GET() {
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase.from("templates").select("*");
 
     if (error) {
@@ -21,6 +22,7 @@ export async function POST(req: NextRequest) {
     try {
         const body: TemplateData = await req.json();
         const { id, name, num_pages, cover, data } = body;
+        const supabase = getSupabaseClient();
 
         const { data: insertedData, error } = await supabase.from("templates").insert([
             {

@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase";
+import { getSupabaseClient } from "@/lib/supabase";
 import { NextResponse, NextRequest } from "next/server";
 
 export async function DELETE(
@@ -15,6 +15,7 @@ export async function DELETE(
             );
         }
 
+        const supabase = getSupabaseClient();
         const { data: template, error: fetchError } = await supabase.from("templates").select("*").eq("id", id).single();
 
         if (fetchError || !template) {
@@ -85,6 +86,7 @@ export async function GET(
             );
         }
 
+        const supabase = getSupabaseClient();
         const { data: template, error } = await supabase.from("templates").select("*").eq("id", id).single();
 
         if (error || !template) {
@@ -140,6 +142,7 @@ export async function PATCH(
 
         updateData.updated_at = new Date().toISOString();
 
+        const supabase = getSupabaseClient();
         const { data, error } = await supabase.from("templates").update(updateData).eq("id", id).select().single();
 
         if (error) {
