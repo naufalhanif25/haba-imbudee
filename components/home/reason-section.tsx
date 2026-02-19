@@ -8,7 +8,7 @@ export default function ReasonSection() {
             <div className="flex sm:flex-row flex-col items-center justify-center w-full max-w-240">
                 <div className="gap-4 py-8 px-4 sm:flex-1 flex flex-col items-start justify-center">
                     <h1 className="text-xl font-bold sm:text-left text-center">
-                        Kenapa Menggunakan HabaImbudee?
+                        Kenapa Menggunakan {process.env.NEXT_PUBLIC_PLATFORM_NAME}?
                     </h1>
                     <div className="flex items-start justify-center w-fit h-fit gap-2 flex-col">
                         {[
