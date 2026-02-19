@@ -16,11 +16,11 @@ export default function FooterInfo() {
     const contacts: ContactProps[] = [
         {
             icon: <Phone {...footerIconProps}/>,
-            title: "08xx-xxxx-xxxx"
+            title: "0852-6064-4070"
         },
         {
             icon: <Mail {...footerIconProps}/>,
-            title: "infoimbudee@gmail.com"
+            title: "gampongimbudee@gmail.com"
         }
     ];
 
