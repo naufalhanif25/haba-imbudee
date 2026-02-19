@@ -15,15 +15,15 @@ import {
 } from "lucide-react";
 import { Rnd } from "react-rnd";
 import { pdfjs } from "react-pdf";
-import dayjs from "dayjs";
 import Zoom from "@/components/zoom";
 import RightSidebar from "@/components/template/right-sidebar";
 import PlaceholderList from "./placeholder-list";
 import PlaceholderAttr from "./placeholder-attr";
+import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabase";
+import axios from "axios";
 import ScreenLoader from "@/components/template/screen-loader";
 import * as templateProps from "@/app/admin/dashboard/(template)/template-props";
-
-dayjs.locale("id");
 
 const Document = dynamic(
     () => import("react-pdf").then((mod) => mod.Document),
@@ -41,6 +41,7 @@ export type PageActiveElement = {
 };
 
 export default function TemplateNew() {
+    const router = useRouter();
     const [zoomPercentage, setZoomPercentage] = useState<number>(100);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [fileUrl, setFileUrl] = useState<string | null>(null);
@@ -51,7 +52,6 @@ export default function TemplateNew() {
     const [pagePlaceholders, setPagePlaceholders] = useState<templateProps.PlaceholderElement[][]>([]);
     const [activeElement, setActiveElement] = useState<PageActiveElement | null>(null);
     const [isSaving, setIsSaving] = useState<boolean>(false);
-    const [lastSaved, setLastSaved] = useState<string | null>(null);
 
     useEffect(() => {
         import("react-pdf").then((pdfjsLib) => {
@@ -178,6 +178,20 @@ export default function TemplateNew() {
         setActiveElement(null);
     };
 
+    const uploadImageToSupabase = async (base64: string, path: string) => {
+        const blob = await (await fetch(base64)).blob();
+        const { data, error } = await supabase.storage.from("templates").upload(path, blob, {
+            contentType: "image/png",
+            upsert: true
+        });
+
+        if (error) throw error;
+
+        const { data: publicUrlData } = supabase.storage.from("templates").getPublicUrl(data.path);
+
+        return publicUrlData.publicUrl;
+    };
+
     const convertPdfPageToBase64 = async (fileUrl: string, pageNumber: number) => {
         const loadingTask = pdfjs.getDocument(fileUrl);
         const pdf = await loadingTask.promise;
@@ -201,20 +215,26 @@ export default function TemplateNew() {
     const saveTemplate = async () => {
         if (!fileUrl) return;
 
-        const data = await Promise.all(
-            Array.from({ length: numPages }).map((_, index) =>
-                convertPdfPageToBase64(fileUrl, index + 1)
-            )
+        const imageUrls = await Promise.all(
+            Array.from({ length: numPages }).map(async (_, index) => {
+                const base64 = await convertPdfPageToBase64(fileUrl, index + 1);
+                const url = await uploadImageToSupabase(
+                    base64,
+                    `${crypto.randomUUID()}.png`
+                );
+
+                return url;
+            })
         );
 
-        if (data.length != numPages) return;
+        if (imageUrls.length != numPages) return;
         if (pagePlaceholders.length != numPages) return;
 
         const pagesData: templateProps.TemplatePageData[] = Array.from({ length: numPages }).map((_, index) => {
             const placeholders: templateProps.PlaceholderElement[] = pagePlaceholders[index];
 
             return {
-                image: data[index],
+                image: imageUrls[index],
                 placeholders: placeholders.map((placeholder) => (
                     {
                         id: placeholder.id,
@@ -229,18 +249,15 @@ export default function TemplateNew() {
             };
         });
 
-        // TODO: Simpan data template ke database
         const template: templateProps.TemplateData = {
             id: crypto.randomUUID(),
             name: templateName,
-            numPages,
-            cover: data[0],
+            num_pages: numPages,
+            cover: imageUrls[0],
             data: pagesData
         };
 
-        localStorage.setItem("template", JSON.stringify(template));
-
-        setLastSaved(dayjs().format("DD-MMM-YYYY (HH:mm:ss)"));
+        await axios.post("/api/templat", template);
     }
 
     const tools: templateProps.ToolProps[] = [
@@ -282,11 +299,6 @@ export default function TemplateNew() {
                         <h2 className="text-xs font-medium">
                             {numPages} halaman
                         </h2>
-                        {lastSaved && (
-                            <h2 className="text-xs font-medium">
-                                Terakhir disimpan {lastSaved}
-                            </h2>
-                        )}
                     </div>
                 </div>
                 <div className="relative h-full w-auto max-w-full flex-1 shrink-0 min-w-0 bg-gray-200">
@@ -430,6 +442,7 @@ export default function TemplateNew() {
                                         setIsSaving(true);
                                         await saveTemplate();
                                         setIsSaving(false);
+                                        router.push("?daftar-templat");
                                     }}
                                 >
                                     <Save {...iconProps}/>
