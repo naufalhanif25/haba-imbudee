@@ -7,9 +7,11 @@ import {
     useEffect,
     useRef
 } from "react";
+import { useSearchParams } from "next/navigation";
 import { useReactToPrint } from "react-to-print";
 import TemplateInput from "@/components/template/template-input";
 import Zoom from "@/components/zoom";
+import axios from "axios";
 import MenuLast from "@/components/create/menu-last";
 import RightSidebar from "@/components/template/right-sidebar";
 import ScreenLoader from "@/components/template/screen-loader";
@@ -27,27 +29,45 @@ type DocumentProps = {
 
 export default function BuatSurat() {
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const templateId = searchParams.get("id");
     const pageRefs = useRef<(HTMLDivElement | null)[]>([]);
     const [activePage, setActivePage] = useState<number>(1);
     const [placeholderData, setPlaceholderData] = useState<Record<string, PlaceholderData>>({});
     const [zoomPercentage, setZoomPercentage] = useState<number>(100);
     const printRef = useRef<HTMLDivElement>(null);
-
-    // TODO: Ganti dengan data asli yang sesuai
     const [templateData, setTemplateData] = useState<templateProps.TemplateData | null>(null);
 
     useEffect(() => {
-        const stored = localStorage.getItem("template");
+        if (!templateId) return;
 
-        if (stored) setTemplateData(JSON.parse(stored));
-    }, []);
+        const fetchTemplate = async () => {
+            try {
+                const res = await axios.get(`/api/templat/${templateId}`);
+
+                if (!res.data.success || !res.data.data) {
+                    console.warn(`Template dengan ID '${templateId}' tidak tersedia.`);
+                    router.back();
+
+                    return;
+                }
+
+                const data: templateProps.TemplateData = await res.data.data;
+
+                setTemplateData(data);
+            } catch (error: any) {
+                console.error(error);
+                router.back();
+            }
+        }
+        fetchTemplate();
+    }, [templateId]);
     
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [docProps, setDocProps] = useState<DocumentProps>({
         fontSize: 10,
         name: templateData?.name?.toLowerCase().replaceAll(" ", "_") || "Surat Tanpa Nama"
     });
-
     
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -72,7 +92,7 @@ export default function BuatSurat() {
         });
     
         return () => observer.disconnect();
-    }, [templateData?.numPages]);
+    }, [templateData?.num_pages]);
 
     const updatePlaceholderData = (key: string, name: string = "", value: string = "") => {
         setPlaceholderData((prev) => ({
@@ -117,13 +137,19 @@ export default function BuatSurat() {
                             </h1>
                         </div>
                         <p className="font-medium text-xs text-nowrap">
-                            {templateData?.numPages} halaman
+                            {templateData?.num_pages} halaman
                         </p>
                     </div>
                     <ScreenLoader 
                         title="Mengekspor Surat"
                         show={isLoading}
                     />
+                    {!templateData && (
+                        <ScreenLoader 
+                            title="Memuat templat Surat"
+                            show={true}
+                        />
+                    )}
                     <div className="h-full grow flex items-start justify-start lg:justify-center overflow-x-auto overflow-y-auto">
                         <div 
                             className="h-fit w-fit px-8 py-16 flex flex-col items-center justify-center gap-4 inline-block"
@@ -153,6 +179,7 @@ export default function BuatSurat() {
                                                     height: "100%",
                                                     objectFit: "cover"
                                                 }}
+                                                unoptimized
                                             />
                                             {(value.placeholders as templateProps.TamplatePlaceholder[]).map((value, index) => {
                                                 return (
@@ -197,7 +224,7 @@ export default function BuatSurat() {
                         scale={zoomPercentage}
                     />
                     <div className="z-100 px-4 py-2 rounded-full bg-emerald-500 text-xs text-white text-center text-nowrap font-medium absolute top-4 right-4">
-                        Halaman {activePage} dari {templateData?.numPages}
+                        Halaman {activePage} dari {templateData?.num_pages}
                     </div>
                 </div>
                 <RightSidebar>
@@ -263,6 +290,7 @@ export default function BuatSurat() {
                         <MenuLast 
                             onDownload={() => {
                                 setIsLoading(true);
+                                setZoomPercentage(100);
                                 setTimeout(() => {
                                     handlePrint?.();
                                     setIsLoading(false);
