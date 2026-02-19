@@ -11,7 +11,7 @@ const lato = Lato({
 });
 
 export const metadata: Metadata = {
-    title: "HabaImbudee",
+    title: process.env.NEXT_PUBLIC_PLATFORM_NAME,
     description: "Portal digital Desa Imbudee. Semua urusan administrasi menjadi lebih cepat dan mudah dengan layanan digital berbasis website.",
 };
 
