@@ -44,7 +44,9 @@ export type TemplatePageData = {
 export type TemplateData = {
     id: string;
     name: string;
-    numPages: number;
+    num_pages: number;
     cover: string;
     data: TemplatePageData[];
+    created_at?: string;
+    updated_at?: string;
 };
