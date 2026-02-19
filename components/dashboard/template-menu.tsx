@@ -11,17 +11,19 @@ type DashboardMenuIconProps = {
 
 export type TemplateMenuButton = {
     title: string;
-    action?: () => void;
+    action: (...args: any[]) => void;
     className?: string;
     style?: React.CSSProperties;
 };
 
 export type TemplateMenuProps = React.HTMLAttributes<HTMLDivElement> & {
+    params?: any[];
     buttons?: TemplateMenuButton[];
     className?: string;
 }
 
 export default function TemplateMenu({
+    params,
     buttons,
     className,
     ...props
@@ -32,8 +34,7 @@ export default function TemplateMenu({
         size: 20,
         strokeWidth: 2
     }
-
-    // TODO: Tambahkan gambar preview
+    
     return (
         <div 
             className={`w-fit h-fit relative ${className}`}
@@ -49,7 +50,7 @@ export default function TemplateMenu({
             >
                 <EllipsisVertical {...dashboardMenuIconProps}/>
             </div>
-            <span className={`p-2 rounded-xl bg-gray-100 border-2 border-gray-200 flex flex-col overflow-hidden items-center justify-center absolute right-0 -bottom-1 translate-y-[100%] z-999 h-fit w-fit transition-all duration-300 ${
+            <span className={`p-2 rounded-xl bg-gray-100 border-2 border-gray-200 flex flex-col overflow-hidden items-center justify-center absolute right-0 -bottom-1 translate-y-[100%] z-999 h-fit min-w-32 w-fit transition-all duration-300 ${
                 openMenu 
                     ? "max-h-40 opacity-100"
                     : "max-h-0 opacity-0"
@@ -58,7 +59,7 @@ export default function TemplateMenu({
                     return (
                         <button 
                             key={index}
-                            onClick={value.action}
+                            onClick={() => value.action(params![index])}
                             className={`w-full h-fit text-md py-2 px-4 bg-gray-100 hover:bg-gray-200 transition duration-100 text-nowrap text-left rounded-lg ${value.className}`}
                             style={value.style}
                         >
