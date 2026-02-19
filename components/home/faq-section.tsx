@@ -47,10 +47,10 @@ export default function FAQSection() {
                         })}
                     </ul>
                 </FaqDropdown>
-                <FaqDropdown title="Siapa yang dapat membuat surat di HabaImbudee?">
+                <FaqDropdown title={`Siapa yang dapat membuat surat di ${process.env.NEXT_PUBLIC_PLATFORM_NAME}?`}>
                     <span className="w-fit h-fit my-4 mx-8">
                         <p className="text-md">
-                            Siapa saja dapat membuat surat di HabaImbudee, tidak ada pembatasan untuk membuat surat dengan menggunakan templat yang sudah disediakan oleh Admin Desa.
+                            Siapa saja dapat membuat surat di {process.env.NEXT_PUBLIC_PLATFORM_NAME}, tidak ada pembatasan untuk membuat surat dengan menggunakan templat yang sudah disediakan oleh Admin Desa.
                         </p>
                     </span>
                 </FaqDropdown>
