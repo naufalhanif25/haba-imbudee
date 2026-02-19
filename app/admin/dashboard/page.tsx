@@ -1,8 +1,14 @@
 "use client";
 
 import React from "react";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { 
+    useState,
+    useEffect
+} from "react";
+import { 
+    useRouter,
+    useSearchParams
+} from "next/navigation";
 import {
     PanelLeftOpen,
     PanelLeftClose,
@@ -30,34 +36,53 @@ type DashboardIconProps = {
 };
 
 type SidebarButton = {
+    id?: string;
     name: string;
     icon: React.ReactElement;
     parentClassName?: string;
     className?: string;
     style?: React.CSSProperties;
-    action?: () => void;
+    action: (...args: any[]) => void;
 };
 
 export default function Dashboard() {
     const router = useRouter();
     const [openSidebar, setOpenSidebar] = useState<boolean>(false);
-    const [currentWindow, setCurrentWindow] = useState<React.ReactNode>(<TemplateList/>);
+    const searchParams = useSearchParams();
+    const section = searchParams.get("section");
+
+    useEffect(() => {
+        if (!section) {
+            const params = new URLSearchParams(searchParams.toString());
+            params.set("section", "daftar-templat");
+            router.replace(`?${params.toString()}`);
+        }
+    }, [section, searchParams, router]);
 
     const dashboardIconProps: DashboardIconProps = {
         size: 24,
         strokeWidth: 2
     }
 
+    const setSection = (section: string) => {
+        const params = new URLSearchParams(searchParams.toString());
+
+        params.set("section", section);
+        router.push(`?${params.toString()}`);
+    };
+
     const sidebarButtons: SidebarButton[] = [
         {
+            id: "daftar-templat",
             name: "Daftar Templat",
             icon: <LibraryBig {...dashboardIconProps}/>,
-            action: () => setCurrentWindow(<TemplateList/>)
+            action: (id: string) => setSection(id)
         },
         {
+            id: "buat-templat",
             name: "Buat Templat Baru",
             icon: <FilePlusCorner {...dashboardIconProps}/>,
-            action: () => setCurrentWindow(<TemplateNew />)
+            action: (id: string) => setSection(id)
         },
         {
             name: "Kembali ke Beranda",
@@ -105,8 +130,10 @@ export default function Dashboard() {
                                         openSidebar
                                             ? "gap-3"
                                             : "gap-0"
+                                    } ${
+                                        value.id === section && "bg-emerald-200"
                                     } ${value.parentClassName}`}
-                                    onClick={value.action}
+                                    onClick={() => value.action(value.id)}
                                 >
                                     {value.icon}
                                     <h1 
@@ -126,7 +153,12 @@ export default function Dashboard() {
                 </div>
             </div>
             <div className="grow h-screen overflow-y-auto scroll-smooth flex flex-col items-center justify-center">
-                {currentWindow}
+                {
+                    section === "daftar-templat" && <TemplateList/>
+                }
+                {
+                    section === "buat-templat" && <TemplateNew />
+                }
             </div>
         </div>
     );
