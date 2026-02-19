@@ -4,6 +4,8 @@ import ReasonSection from "./reason-section";
 import DocsSection from "./docs-section";
 import FeaturesSection from "./features-section";
 import FAQSection from "./faq-section";
+import OrgSection from "./org-section";
+import MapSection from "./map-section";
 
 export default function HomeMainSection() {
     return (
@@ -11,8 +13,10 @@ export default function HomeMainSection() {
             <HeroSection />
             <AboutSection />
             <ReasonSection />
-            <DocsSection />
             <FeaturesSection />
+            <DocsSection />
+            <OrgSection />
+            <MapSection />
             <FAQSection />
         </main>
     );
