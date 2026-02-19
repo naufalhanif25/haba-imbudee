@@ -32,7 +32,7 @@ export default function TemplateInput({
                 type={type} 
                 className="w-full py-1 border-b-2 outline-none border-gray-400 focus:border-emerald-500 text-md text-nowrap"
                 placeholder={title}
-                value={value}
+                value={value || ""}
                 {...props}
             />
         </div>
