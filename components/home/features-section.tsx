@@ -34,11 +34,10 @@ export default function FeaturesSection() {
     ];
 
     return (
-        // TODO: Sesuaikan fitur dengan fitur sebenarnya
-        <section className="flex flex-col items-center justify-center px-16 py-12 gap-8">
-            <div className="gap-8 py-8 flex flex-col items-center justify-center w-fit h-fit">
+        <section className="flex flex-col items-center justify-center px-16 py-8 gap-8">
+            <div className="gap-8 flex flex-col items-center justify-center w-fit h-fit">
                 <h1 className="text-xl font-bold sm:text-left text-center">
-                    Fitur-fitur Unggulan HabaImbudee
+                    Fitur-fitur Unggulan {process.env.NEXT_PUBLIC_PLATFORM_NAME}
                 </h1>
                 <div className="w-full h-fit flex items-center justify-center gap-4">
                     <div className="flex flex-wrap items-start justify-center gap-8 w-full">
@@ -46,7 +45,7 @@ export default function FeaturesSection() {
                             return (
                                 <div 
                                     key={index}
-                                    className="flex w-32 flex-col items-center justify-center gap-2"
+                                    className="flex w-32 h-fit flex-col items-center justify-start gap-2"
                                 >
                                     <span className="flex items-center justify-center rounded-full p-4 bg-amber-500">
                                         {value.icon}
