@@ -12,6 +12,7 @@ export type ToolIconProps = {
 };
 
 export type PlaceholderType = "text" | "date" | "number";
+export type PlaceholderStyle = "bold" | "normal" | "italic" | "underline";
 
 export type PlaceholderElement = {
     id: string;
@@ -23,7 +24,7 @@ export type PlaceholderElement = {
     height: number;
     bounds?: string;
     className?: string;
-    style?: React.CSSProperties;
+    style?: PlaceholderStyle;
 };
 
 export type TamplatePlaceholder = {
@@ -34,10 +35,13 @@ export type TamplatePlaceholder = {
     y: number;
     width: number;
     height: number;
+    style: PlaceholderStyle;
 };
 
 export type TemplatePageData = {
     image: string;
+    width: number;
+    height: number;
     placeholders: TamplatePlaceholder[]
 };
 
