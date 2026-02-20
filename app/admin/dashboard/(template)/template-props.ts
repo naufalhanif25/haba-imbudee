@@ -24,7 +24,7 @@ export type PlaceholderElement = {
     height: number;
     bounds?: string;
     className?: string;
-    style?: PlaceholderStyle;
+    style: PlaceholderStyle;
 };
 
 export type TamplatePlaceholder = {
