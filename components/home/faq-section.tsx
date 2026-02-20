@@ -2,8 +2,7 @@ import FaqDropdown from "../faq-dropdown";
 
 export default function FAQSection() {
     return (
-        // TODO: Tambahkan pertanyaan lain dan ganti pertanyaan yang duplikat
-        <section className="flex flex-col items-center justify-center px-16 py-12 gap-6 bg-emerald-100">
+        <section className="flex flex-col items-center justify-center px-8 md:px-16 py-12 gap-6 bg-emerald-100">
             <h1 className="text-2xl font-bold sm:text-left text-center">
                 FAQ
             </h1>
