@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { Check } from "lucide-react";
-import Slider from "../slider";
 
 export default function ReasonSection() {
     return (
