@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { PulseLoader } from "react-spinners";
 import axios, { AxiosError } from "axios";
 import { LoginResponse } from "@/app/api/masuk/route";
 import FormEntry from "@/components/form-entry";
@@ -36,18 +37,23 @@ export default function Login() {
 
     const [showErrMsg, setShowErrMsg] = useState<boolean>(false);
     const [errMsg, setErrMsg] = useState<string>("");
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const login = async () => {
+        setIsLoading(true);
+
         try {
             await axios.post("/api/masuk", {
                 username: account.username,
                 password: account.password
             });
             
+            setIsLoading(false);
             router.push("/admin/dashboard");
         } catch (error: any) {
             const data = (error as AxiosError).response?.data as LoginResponse;
 
+            setIsLoading(false);
             setErrMsg(data.message);
             setShowErrMsg(true);
 
@@ -112,14 +118,23 @@ export default function Login() {
                     )}
                 </div>
                 <button 
-                    className="p-2 mt-2 max-w-36 w-full rounded-lg bg-emerald-500 hover:bg-emerald-600 transition duration-100 flex items-center justify-center text-white text-md text-medium gap-2"
+                    className="p-2 mt-2 max-h-12 h-12 max-w-36 w-full rounded-lg bg-emerald-500 hover:bg-emerald-600 transition duration-100 flex items-center justify-center text-white text-md text-medium gap-2"
                     onClick={login}
                 >
-                    Masuk
-                    <ArrowRight 
-                        {...loginIconProps}
-                        size={20} 
-                    />
+                    {!isLoading ? (
+                        <>
+                            Masuk
+                            <ArrowRight 
+                                {...loginIconProps}
+                                size={20} 
+                            />
+                        </>
+                    ) : (
+                        <PulseLoader 
+                            color="white"
+                            size={6}
+                        />
+                    )}
                 </button>
             </div>
             <span 
