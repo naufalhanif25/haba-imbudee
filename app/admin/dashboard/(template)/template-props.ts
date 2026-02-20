@@ -13,6 +13,7 @@ export type ToolIconProps = {
 
 export type PlaceholderType = "text" | "date" | "number";
 export type PlaceholderStyle = "bold" | "normal" | "italic" | "underline";
+export type PlaceholderAlignment = "left" | "center" | "right";
 
 export type PlaceholderElement = {
     id: string;
@@ -25,6 +26,7 @@ export type PlaceholderElement = {
     bounds?: string;
     className?: string;
     style: PlaceholderStyle;
+    alignment: PlaceholderAlignment;
 };
 
 export type TamplatePlaceholder = {
@@ -36,6 +38,7 @@ export type TamplatePlaceholder = {
     width: number;
     height: number;
     style: PlaceholderStyle;
+    alignment: PlaceholderAlignment;
 };
 
 export type TemplatePageData = {
