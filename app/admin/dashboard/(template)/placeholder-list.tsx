@@ -13,7 +13,7 @@ export default function PlaceholderList ({
     setter: (value: React.SetStateAction<PageActiveElement | null>) => void;
 }) {
     return (
-        <div className="w-full h-fit min-h-48 max-h-48 flex flex-col items-center justify-start gap-4">
+        <div className="w-full h-fit min-h-64 max-h-64 shrink-0 flex flex-col items-center justify-start gap-4">
             <h1 className="text-md font-medium shrink-0 text-nowrap truncate leading-10 border-b-2 border-emerald-500 w-full">
                 Daftar Penampung
             </h1>
