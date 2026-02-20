@@ -136,6 +136,7 @@ export default function TemplateNew() {
             y:128,
             width: 256,
             height: 32,
+            style: "normal",
             type,
             name,
             bounds: "parent",
