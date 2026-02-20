@@ -215,10 +215,10 @@ export default function BuatSuratClient() {
                                                 }}
                                                 unoptimized
                                             />
-                                            {(template.placeholders as templateProps.TamplatePlaceholder[]).map((value, index) => {
+                                            {(template.placeholders as templateProps.TamplatePlaceholder[]).map((value) => {
                                                 return (
                                                     <div 
-                                                        key={index}
+                                                        key={value.id}
                                                         style={{
                                                             width: value.width,
                                                             height: value.height,
