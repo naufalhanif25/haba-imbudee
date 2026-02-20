@@ -137,6 +137,7 @@ export default function TemplateNew() {
             width: 256,
             height: 32,
             style: "normal",
+            alignment: "left",
             type,
             name,
             bounds: "parent",
@@ -243,7 +244,8 @@ export default function TemplateNew() {
                         y: placeholder.y,
                         width: placeholder.width,
                         height: placeholder.height,
-                        style: placeholder.style || "normal"
+                        style: placeholder.style || "normal",
+                        alignment: placeholder.alignment
                     }
                 ))
             };
