@@ -4,11 +4,11 @@ import {
     PanelRightOpen
 } from "lucide-react";
 
-export default function RightSidebar({ children }: { children: React.ReactNode }) {
+export default function RightSidebar({ children, className }: { children: React.ReactNode, className?: string }) {
     const [openPanel, setOpenPanel] = useState<boolean>(true);
 
     return (
-        <div className="flex w-fit h-full items-center justify-center">
+        <div className={`flex w-fit h-full items-center justify-center ${className}`}>
             <div className="h-full w-fit p-2 border-l-2 border-gray-600 bg-white flex flex-col items-center justify-start px-3 py-4 gap-2">
                 <span className="cursor-pointer">
                     {
