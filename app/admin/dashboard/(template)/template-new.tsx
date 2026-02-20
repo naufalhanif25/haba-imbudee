@@ -20,7 +20,6 @@ import RightSidebar from "@/components/template/right-sidebar";
 import PlaceholderList from "./placeholder-list";
 import PlaceholderAttr from "./placeholder-attr";
 import { useRouter } from "next/navigation";
-import { getSupabaseClient } from "@/lib/supabase";
 import axios from "axios";
 import ScreenLoader from "@/components/template/screen-loader";
 import * as templateProps from "@/app/admin/dashboard/(template)/template-props";
@@ -52,7 +51,6 @@ export default function TemplateNew() {
     const [pagePlaceholders, setPagePlaceholders] = useState<templateProps.PlaceholderElement[][]>([]);
     const [activeElement, setActiveElement] = useState<PageActiveElement | null>(null);
     const [isSaving, setIsSaving] = useState<boolean>(false);
-    const supabase = getSupabaseClient();
 
     useEffect(() => {
         import("react-pdf").then((pdfjsLib) => {
@@ -180,17 +178,13 @@ export default function TemplateNew() {
     };
 
     const uploadImageToSupabase = async (base64: string, path: string) => {
-        const blob = await (await fetch(base64)).blob();
-        const { data, error } = await supabase.storage.from("templates").upload(path, blob, {
-            contentType: "image/png",
-            upsert: true
+        const res = await axios.post("/api/templat/gambar", {
+            base64,
+            path
         });
 
-        if (error) throw error;
-
-        const { data: publicUrlData } = supabase.storage.from("templates").getPublicUrl(data.path);
-
-        return publicUrlData.publicUrl;
+        if (!res.data.success) throw new Error(res.data.message);
+        return res.data.publicUrl;
     };
 
     const convertPdfPageToBase64 = async (fileUrl: string, pageNumber: number) => {
