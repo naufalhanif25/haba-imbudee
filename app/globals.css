@@ -40,5 +40,6 @@ button {
         border: none !important;
         outline: none !important;
         transform: none !important;
+        box-shadow: none !important;
     }
 }
