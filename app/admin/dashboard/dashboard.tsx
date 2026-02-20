@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import axios from "axios";
 import dynamic from "next/dynamic";
+import ScreenLoader from "@/components/template/screen-loader";
 
 const TemplateList = dynamic(
     () => import("./(template)/template-list"),
@@ -50,6 +51,7 @@ export default function DashboardClient() {
     const [openSidebar, setOpenSidebar] = useState<boolean>(false);
     const searchParams = useSearchParams();
     const section = searchParams.get("section");
+    const [loggingOut, setLoggingOut] = useState<boolean>(false);
 
     useEffect(() => {
         if (!section) {
@@ -97,7 +99,9 @@ export default function DashboardClient() {
                 className="text-red-500"
             />,
             action: async () => {
+                setLoggingOut(true);
                 await axios.post("/api/keluar");
+                setLoggingOut(false);
                 router.push("/");
             },
             className: "text-red-500",
@@ -161,6 +165,14 @@ export default function DashboardClient() {
                     section === "buat-templat" && <TemplateNew />
                 }
             </div>
+            {loggingOut && (
+                <div className="w-screen h-screen z-999 fixed left-0 top-0 flex items-center justify-center">
+                    <ScreenLoader 
+                        title="Keluar"
+                        show={true}
+                    />
+                </div>
+            )}
         </div>
     );
 }
