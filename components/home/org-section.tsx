@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function OrgSection() {
     return (
-        <section className="flex flex-col items-center justify-center px-16 py-12 gap-8">
+        <section className="flex flex-col items-center justify-center px-8 md:px-16 py-12 gap-8">
             <div className="w-full h-fit max-w-240 flex flex-col items-center justify-center gap-2">
                 <h1 className="text-2xl font-bold sm:text-left text-center">
                     Susunan Organisasi Pemerintahan
