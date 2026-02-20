@@ -1,6 +1,6 @@
 export default function AboutSection() {
     return (
-        <section className="w-full h-fit px-16 py-12 flex flex-col items-center justify-center gap-8">
+        <section className="w-full h-fit px-8 md:px-16 py-12 flex flex-col items-center justify-center gap-8">
             <h1 className="text-2xl font-bold sm:text-left text-center">
                 Tentang Desa Imbudee
             </h1>
