@@ -37,7 +37,7 @@ export default function FormEntry({
                     {required && "*"}
                 </p>
             </div>
-            <div className="relative flex items-center justify-end w-full h-fit">
+            <div className={`relative flex items-center justify-start w-full h-fit gap-2 overflow-hidden ${className}`}>
                 <input 
                     type={
                         hideText 
@@ -47,13 +47,13 @@ export default function FormEntry({
                                 : "password" 
                             ) : type
                     } 
-                    className={`w-full h-full ${className}`}
+                    className="grow outline-none text-md h-full min-w-0"
                     required={required}
                     {...props}
                 />
                 {hideText && (
                     <span 
-                        className="absolute h-fit w-fit right-4 cursor-pointer"
+                        className="h-fit w-fit cursor-pointer"
                         onClick={
                             () => showPass
                                 ? setShowPass(false)
