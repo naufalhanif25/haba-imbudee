@@ -135,7 +135,7 @@ export default function TemplateNew() {
             x: 128,
             y:128,
             width: 256,
-            height: 32,
+            height: 14,
             style: "normal",
             alignment: "left",
             type,
