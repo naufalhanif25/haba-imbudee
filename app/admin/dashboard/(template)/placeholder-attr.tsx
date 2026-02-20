@@ -6,6 +6,7 @@ import {
 import TemplateInput from "@/components/template/template-input";
 import * as templateProps from "@/app/admin/dashboard/(template)/template-props";
 import { PageActiveElement } from "./template-new";
+import StyleOpts from "./style-opts";
 
 export default function PlaceholderAttr({
     numPages,
@@ -28,6 +29,7 @@ export default function PlaceholderAttr({
     ) => void;
 }) {
     const [fontStyleId, setFontStyleId] = useState<templateProps.PlaceholderStyle>("normal");
+    const [fontAlignment, setFontAlignment] = useState<templateProps.PlaceholderAlignment>("left");
 
     useEffect(() => {
         if (!state) return;
@@ -106,30 +108,32 @@ export default function PlaceholderAttr({
                                             required
                                         />
                                     </div>
-                                    <div className="max-w-64 w-full h-fit mt-4 flex flex-wrap items-center justify-center gap-2">
-                                        {["Normal", "Bold", "Italic", "Underline"].map((value, idx) => {
-                                            return (
-                                                <button 
-                                                    key={idx}
-                                                    className={`py-1 px-4 rounded-md border-2 border-emerald-500 ${
-                                                        fontStyleId === value.toLocaleLowerCase()
-                                                            ? "bg-emerald-500 text-white"
-                                                            : "bg-white"
-                                                    }`}
-                                                    onClick={() => {
-                                                        const newFontStyleId = value.toLocaleLowerCase() as templateProps.PlaceholderStyle;
+                                    <StyleOpts 
+                                        className="max-w-64 w-full h-fit mt-4"
+                                        titles={["Normal", "Bold", "Italic", "Underline"]}
+                                        state={fontStyleId}
+                                        onClick={(value) => {
+                                            const newFontStyleId = value.toLocaleLowerCase() as templateProps.PlaceholderStyle;
 
-                                                        setFontStyleId(newFontStyleId)
-                                                        onUpdateSetter(index, placeholder.id, {
-                                                            style: newFontStyleId
-                                                        });
-                                                    }}
-                                                >
-                                                    {value}
-                                                </button>
-                                            );
-                                        })}
-                                </div>
+                                            setFontStyleId(newFontStyleId)
+                                            onUpdateSetter(index, placeholder.id, {
+                                                style: newFontStyleId
+                                            });
+                                        }}
+                                    />
+                                    <StyleOpts 
+                                        className="max-w-64 w-full h-fit mt-4"
+                                        titles={["Left", "Center", "Right"]}
+                                        state={fontAlignment}
+                                        onClick={(value) => {
+                                            const newFontAlignment = value.toLocaleLowerCase() as templateProps.PlaceholderAlignment;
+
+                                            setFontAlignment(newFontAlignment)
+                                            onUpdateSetter(index, placeholder.id, {
+                                                alignment: newFontAlignment
+                                            });
+                                        }}
+                                    />
                                 </div>
                                 <button 
                                     className="flex items-center justify-center gap-2 w-full p-2 rounded-full bg-emerald-500 hover:bg-emerald-600 transition duration-100 text-white text-md max-w-64"
