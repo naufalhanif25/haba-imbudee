@@ -50,6 +50,7 @@ export default function TemplateNew() {
     const [activePage, setActivePage] = useState<number>(1);
     const [pagePlaceholders, setPagePlaceholders] = useState<templateProps.PlaceholderElement[][]>([]);
     const [activeElement, setActiveElement] = useState<PageActiveElement | null>(null);
+    const [pagesSize, setPagesSize] = useState<{ width: number, height: number }[]>([]);
     const [isSaving, setIsSaving] = useState<boolean>(false);
 
     useEffect(() => {
@@ -230,6 +231,8 @@ export default function TemplateNew() {
 
             return {
                 image: imageUrls[index],
+                width: pagesSize[index].width,
+                height: pagesSize[index].height,
                 placeholders: placeholders.map((placeholder) => (
                     {
                         id: placeholder.id,
@@ -238,7 +241,8 @@ export default function TemplateNew() {
                         x: placeholder.x,
                         y: placeholder.y,
                         width: placeholder.width,
-                        height: placeholder.height
+                        height: placeholder.height,
+                        style: placeholder.style || "normal"
                     }
                 ))
             };
@@ -334,6 +338,15 @@ export default function TemplateNew() {
                                                     className="border-2 border-gray-600 flex flex-col items-center justify-center overflow-hidden"
                                                     width={595}
                                                     height={842}
+                                                    onLoadSuccess={(page) => {
+                                                        const originalWidth = page.originalWidth;
+                                                        const originalHeight = page.originalHeight;
+
+                                                        setPagesSize((prev) => ([...prev, {
+                                                            width: originalWidth,
+                                                            height: originalHeight
+                                                        }]))
+                                                    }}
                                                 />
                                                 {pagePlaceholders[index]?.map((placeholder) => {
                                                     const scale = zoomPercentage / 100;
@@ -356,7 +369,6 @@ export default function TemplateNew() {
                                                                     ? "border-emerald-500 ring-2 ring-emerald-400"
                                                                     : ""
                                                             }`}
-                                                            style={placeholder.style}
                                                             onMouseDown={() =>
                                                                 setActiveElement({
                                                                     pageIndex: index,
@@ -384,7 +396,7 @@ export default function TemplateNew() {
                                 </Document>
                             ) : (
                                 <div className="w-full h-full flex flex-col items-center justify-center">
-                                    <h1 className="text-xl font-medium text-gray-400">
+                                    <h1 className="text-xl font-medium text-gray-400 text-nowrap">
                                         Tidak ada file yang ditampilkan
                                     </h1>
                                 </div>
@@ -408,8 +420,8 @@ export default function TemplateNew() {
                         )}
                     </div>
                 </div>
-                <RightSidebar>
-                    <div className="w-full h-full flex flex-col items-center justify-center gap-4 p-6">
+                <RightSidebar className="z-999">
+                    <div className="w-full min-h-full h-fit flex flex-col items-center justify-start overflow-y-auto gap-4 p-6 bg-white">
                         <div className="w-full h-fit flex flex-col items-center justify-center gap-4">
                             <h1 className="text-md font-medium text-nowrap truncate leading-10 border-b-2 border-emerald-500 w-full">
                                 Opsi Templat
@@ -471,7 +483,7 @@ export default function TemplateNew() {
                             placeholders={pagePlaceholders}
                             state={activeElement}
                             onUpdateSetter={updatePlaceholder}
-                            onDeleterSetter={deletePlaceholder}
+                            onDeleteSetter={deletePlaceholder}
                         />
                         <PlaceholderList 
                             numPages={numPages}
