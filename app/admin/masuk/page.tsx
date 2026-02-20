@@ -64,8 +64,8 @@ export default function Login() {
     }
 
     return (
-        <div className="w-screen h-screen flex items-center justify-center bg-white px-16">
-            <div className="rounded-xl border-2 p-8 max-w-120 w-full flex flex-col items-center justify-center gap-6">
+        <div className="w-screen h-screen flex items-center justify-center bg-white px-8 md:px-16">
+            <div className="rounded-xl border-2 p-8 max-w-120 w-full flex flex-col items-center justify-center gap-6 overflow-hidden">
                 <div className="flex flex-col items-center justify-center gap-4">
                     <span className="p-4 rounded-lg bg-emerald-500">
                         <LogIn 
