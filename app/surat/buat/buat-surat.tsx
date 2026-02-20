@@ -235,6 +235,7 @@ export default function BuatSuratClient() {
                                                                 className="w-full h-fit text-left leading-none"
                                                                 style={{ 
                                                                     ...getTextStyle(value.style),
+                                                                    textAlign: value.alignment,
                                                                     fontFamily: "Times New Roman, serif",
                                                                     fontSize: `${docProps.fontSize}pt`
                                                                 }}
