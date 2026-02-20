@@ -65,7 +65,7 @@ export default function BuatSuratClient() {
     
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [docProps, setDocProps] = useState<DocumentProps>({
-        fontSize: 10,
+        fontSize: 9,
         name: templateData?.name?.toLowerCase().replaceAll(" ", "_") || "Surat Tanpa Nama"
     });
     
@@ -197,7 +197,7 @@ export default function BuatSuratClient() {
                                             Halaman {index + 1}
                                         </span>
                                         <div 
-                                            className="aspect-[1/1.414] border-2 border-gray-600 overflow-hidden relative print-page page-nostyle"
+                                            className="aspect-[1/1.414] ring-2 ring-gray-600 overflow-hidden relative print-page page-nostyle"
                                             style={{
                                                 width: `${template.width || 595}px`,
                                                 height: `${template.height || 842}px`
@@ -227,7 +227,7 @@ export default function BuatSuratClient() {
                                                         }}
                                                         className="absolute cursor-pointer bg-emerald-500/25 border-1 border-emerald-500 flex items-center justify-center page-nostyle"
                                                     >
-                                                        <div className="group w-full h-full flex items-center justify-start relative">
+                                                        <div className="group w-full h-full flex items-start justify-start relative">
                                                             <span className="absolute opacity-0 group-hover:opacity-100 top-0 left-0 -translate-y-[100%] text-xs text-white py-1 px-2 rounded-t-md bg-emerald-500">
                                                                 {value.name}
                                                             </span>
@@ -245,7 +245,6 @@ export default function BuatSuratClient() {
                                                                         ? formatDate(placeholderData[value.id]?.value)
                                                                         : placeholderData[value.id]?.value
                                                                 }
-                                                                
                                                             </p>
                                                         </div>
                                                     </div>
