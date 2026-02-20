@@ -58,8 +58,8 @@ export default function MapSection() {
                 <div className="w-screen h-screen inset-0 flex items-center justify-center p-16 fixed left-0 top-0 bg-black/75 z-999 overflow-hidden">
                     <div className="w-fit w-fit max-w-320 max-h-240 rounded-2xl overflow-hidden">
                         <Image 
-                            src="/peta.png"
-                            alt="Struktur organisasi"
+                            src="https://img.ge/ib/i2o0G96.png"
+                            alt="Peta batas administrasi"
                             width={1920}
                             height={1080}
                             className="w-full h-full max-w-480 max-h-320 object-cover"

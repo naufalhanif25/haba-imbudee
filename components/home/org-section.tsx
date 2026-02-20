@@ -13,7 +13,7 @@ export default function OrgSection() {
             </div>
             <div className="w-full max-w-240 h-fit flex items-center justify-center rounded-xl overflow-hidden">
                 <Image 
-                    src="/struktur_organisasi.png"
+                    src="https://img.ge/ib/HlLJJ8.png"
                     alt="Struktur organisasi"
                     width={1080}
                     height={720}
