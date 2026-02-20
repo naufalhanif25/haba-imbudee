@@ -101,6 +101,21 @@ export default function BuatSuratClient() {
         }))
     };
 
+    const formatDate = (date: string) => {
+        if (!date) return;
+        
+        const months = [
+            "Januari", "Februari", "Maret", "April",
+            "Mei", "Juni", "Juli", "Agustus",
+            "September", "Oktober", "November", "Desember"
+        ];
+
+        const [year, month, day] = date.split("-");
+        const formatted = `${parseInt(day)} ${months[parseInt(month) - 1]} ${year}`;
+
+        return formatted;
+    };
+
     const handlePrint = useReactToPrint({
         contentRef: printRef,
         documentTitle: docProps.name,
@@ -120,6 +135,19 @@ export default function BuatSuratClient() {
             }
         `)
     });
+
+    const getTextStyle = (style: "normal" | "bold" | "italic" | "underline") => {
+        switch (style) {
+            case "bold":
+                return { fontWeight: "bold" };
+            case "italic":
+                return { fontStyle: "italic" };
+            case "underline":
+                return { textDecoration: "underline" };
+            default:
+                return {};
+        }
+    };
 
     return (
         <div className="w-screen h-screen flex flex-col items-center justify-start bg-white">
@@ -159,7 +187,7 @@ export default function BuatSuratClient() {
                             }}
                             ref={printRef}
                         >
-                            {templateData?.data.map((value, index) => {
+                            {templateData?.data.map((template, index) => {
                                 return (
                                     <div
                                         key={index}
@@ -168,12 +196,18 @@ export default function BuatSuratClient() {
                                         <span className="py-1 px-2 rounded-t-md bg-emerald-500 text-xs text-white">
                                             Halaman {index + 1}
                                         </span>
-                                        <div className="aspect-[1/1.414] border-2 border-gray-600 w-[595px] h-[842px] overflow-hidden relative print-page page-nostyle">
+                                        <div 
+                                            className="aspect-[1/1.414] border-2 border-gray-600 overflow-hidden relative print-page page-nostyle"
+                                            style={{
+                                                width: `${template.width || 595}px`,
+                                                height: `${template.height || 842}px`
+                                            }}
+                                        >
                                             <Image 
-                                                src={value.image}
+                                                src={template.image}
                                                 alt={`Halaman ${index + 1}`}
-                                                height={842}
-                                                width={595}
+                                                height={template.height || 842}
+                                                width={template.width || 595}
                                                 style={{
                                                     width: "100%",
                                                     height: "100%",
@@ -181,7 +215,7 @@ export default function BuatSuratClient() {
                                                 }}
                                                 unoptimized
                                             />
-                                            {(value.placeholders as templateProps.TamplatePlaceholder[]).map((value, index) => {
+                                            {(template.placeholders as templateProps.TamplatePlaceholder[]).map((value, index) => {
                                                 return (
                                                     <div 
                                                         key={index}
@@ -200,11 +234,17 @@ export default function BuatSuratClient() {
                                                             <p 
                                                                 className="w-full h-fit text-left leading-none"
                                                                 style={{ 
+                                                                    ...getTextStyle(value.style),
                                                                     fontFamily: "Times New Roman, serif",
                                                                     fontSize: `${docProps.fontSize}pt`
                                                                 }}
                                                             >
-                                                                {placeholderData[value.id]?.value}
+                                                                {
+                                                                    value.type === "date"
+                                                                        ? formatDate(placeholderData[value.id]?.value)
+                                                                        : placeholderData[value.id]?.value
+                                                                }
+                                                                
                                                             </p>
                                                         </div>
                                                     </div>
@@ -227,8 +267,8 @@ export default function BuatSuratClient() {
                         Halaman {activePage} dari {templateData?.num_pages}
                     </div>
                 </div>
-                <RightSidebar>
-                    <div className="overflow-hidden w-full h-full flex flex-col items-center justify-start p-6 gap-2">
+                <RightSidebar className="z-999">
+                    <div className="overflow-hidden w-full h-full flex flex-col items-center justify-start p-6 gap-2 bg-white">
                         <div className="flex flex-col flex-1 shrink-0 items-center justify-center w-full grow overflow-hidden">
                             <div className="w-full py-2 border-b-2 border-emerald-500">
                                 <h1 className="text-md font-medium text-nowrap">
@@ -240,7 +280,7 @@ export default function BuatSuratClient() {
                                     return (
                                         <TemplateInput 
                                             key={value.id}
-                                            type="text"
+                                            type={value.type}
                                             title={value.name}
                                             className="w-full h-fit flex flex-col items-start justify-center"
                                             placeholder={`Masukkan ${value.name.toLowerCase()}`}
