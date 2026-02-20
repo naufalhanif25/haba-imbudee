@@ -10,7 +10,7 @@ export default function HeroSection() {
     return (
         <section 
             ref={heroRef} 
-            className="min-h-screen w-screen h-fit relative flex bg-emerald-700 items-center justify-center"
+            className="min-h-screen w-screen h-fit relative flex bg-emerald-700 items-center justify-center px-8 md:px-16"
         >
             <Slideshow className="w-full h-full absolute top-0 left-0 flex items-center justify-center bg-emerald-500">
                 {Array.from({ length: 3 }).map((_, index) => {
@@ -34,7 +34,7 @@ export default function HeroSection() {
                         Semua urusan administrasi menjadi lebih cepat dan mudah dengan layanan digital berbasis website.
                     </h2>
                 </div>
-                <div className="w-fit h-fit flex items-start justify-center gap-4">
+                <div className="w-fit h-fit flex flex-col md:flex-row items-start justify-center gap-4">
                     <button 
                         onClick={() => {
                             const rect = heroRef.current?.getBoundingClientRect() ;
