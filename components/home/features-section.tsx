@@ -34,7 +34,7 @@ export default function FeaturesSection() {
     ];
 
     return (
-        <section className="flex flex-col items-center justify-center px-16 py-8 gap-8">
+        <section className="flex flex-col items-center justify-center px-8 md:px-16 py-8 gap-8">
             <div className="gap-8 flex flex-col items-center justify-center w-fit h-fit">
                 <h1 className="text-xl font-bold sm:text-left text-center">
                     Fitur-fitur Unggulan {process.env.NEXT_PUBLIC_PLATFORM_NAME}
