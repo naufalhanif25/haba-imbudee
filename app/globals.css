@@ -10,6 +10,11 @@ button {
         padding: 0 !important;
     }
 
+    * {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
     body * {
         visibility: hidden;
     }
@@ -20,8 +25,8 @@ button {
     }
 
     .print-page {
-        width: 595px !important;
-        height: 842px !important;
+        width: fit-content;
+        height: fit-content;
         page-break-after: always;
         display: flex;
         justify-content: center;
