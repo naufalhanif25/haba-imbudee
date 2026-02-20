@@ -3,7 +3,7 @@ import Slider from "../slider";
 
 export default function DocsSection() {
     return (
-        <section className="flex flex-col items-center justify-center px-16 py-8 gap-8">
+        <section className="flex flex-col items-center justify-center px-8 md:px-16 py-8 gap-8">
             <div className="w-full h-fit max-w-240 flex flex-col items-center justify-center gap-2">
                 <h1 className="text-2xl font-bold sm:text-left text-center">
                     Dokumentasi Desa
