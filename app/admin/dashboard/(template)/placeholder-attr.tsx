@@ -1,5 +1,8 @@
 import { Trash2 } from "lucide-react";
-import { SetStateAction, useState } from "react";
+import { 
+    useState,
+    useEffect
+} from "react";
 import TemplateInput from "@/components/template/template-input";
 import * as templateProps from "@/app/admin/dashboard/(template)/template-props";
 import { PageActiveElement } from "./template-new";
@@ -25,6 +28,13 @@ export default function PlaceholderAttr({
     ) => void;
 }) {
     const [fontStyleId, setFontStyleId] = useState<templateProps.PlaceholderStyle>("normal");
+
+    useEffect(() => {
+        if (!state) return;
+
+        const currentPlaceholder = placeholders[state.pageIndex]?.find((element) => element.id === state.id);
+        if (currentPlaceholder?.style) setFontStyleId(currentPlaceholder.style);
+    }, [state, placeholders]);
 
     return (
         <div className="w-full grow min-h-64 shrink-0 flex flex-col items-center justify-start gap-4">
