@@ -24,7 +24,7 @@ export default function MapSection() {
                     onClick={() => setZoomMap(true)}
                 >
                     <Image 
-                        src="/peta.png"
+                        src="https://img.ge/ib/i2o0G96.png"
                         alt="Struktur organisasi"
                         width={1080}
                         height={720}
