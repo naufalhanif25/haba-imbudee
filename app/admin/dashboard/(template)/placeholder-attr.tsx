@@ -1,4 +1,5 @@
 import { Trash2 } from "lucide-react";
+import { SetStateAction, useState } from "react";
 import TemplateInput from "@/components/template/template-input";
 import * as templateProps from "@/app/admin/dashboard/(template)/template-props";
 import { PageActiveElement } from "./template-new";
@@ -8,7 +9,7 @@ export default function PlaceholderAttr({
     placeholders,
     state,
     onUpdateSetter,
-    onDeleterSetter
+    onDeleteSetter
 }: {
     numPages: number;
     placeholders: templateProps.PlaceholderElement[][];
@@ -18,13 +19,15 @@ export default function PlaceholderAttr({
         id: string, 
         updates: Partial<templateProps.PlaceholderElement> 
     ) => void;
-    onDeleterSetter: (
+    onDeleteSetter: (
         pageIndex: number, 
         id: string
     ) => void;
 }) {
+    const [fontStyleId, setFontStyleId] = useState<templateProps.PlaceholderStyle>("normal");
+
     return (
-        <div className="w-full grow flex flex-col items-center justify-start gap-4">
+        <div className="w-full grow min-h-64 shrink-0 flex flex-col items-center justify-start gap-4">
             <h1 className="text-md font-medium text-nowrap truncate leading-10 border-b-2 border-emerald-500 w-full">
                 Atribut Penampung
             </h1>
@@ -93,10 +96,34 @@ export default function PlaceholderAttr({
                                             required
                                         />
                                     </div>
+                                    <div className="max-w-64 w-full h-fit mt-4 flex flex-wrap items-center justify-center gap-2">
+                                        {["Normal", "Bold", "Italic", "Underline"].map((value, idx) => {
+                                            return (
+                                                <button 
+                                                    key={idx}
+                                                    className={`py-1 px-4 rounded-md border-2 border-emerald-500 ${
+                                                        fontStyleId === value.toLocaleLowerCase()
+                                                            ? "bg-emerald-500 text-white"
+                                                            : "bg-white"
+                                                    }`}
+                                                    onClick={() => {
+                                                        const newFontStyleId = value.toLocaleLowerCase() as templateProps.PlaceholderStyle;
+
+                                                        setFontStyleId(newFontStyleId)
+                                                        onUpdateSetter(index, placeholder.id, {
+                                                            style: newFontStyleId
+                                                        });
+                                                    }}
+                                                >
+                                                    {value}
+                                                </button>
+                                            );
+                                        })}
+                                </div>
                                 </div>
                                 <button 
                                     className="flex items-center justify-center gap-2 w-full p-2 rounded-full bg-emerald-500 hover:bg-emerald-600 transition duration-100 text-white text-md max-w-64"
-                                    onClick={() => onDeleterSetter(index, placeholder.id)}
+                                    onClick={() => onDeleteSetter(index, placeholder.id)}
                                 >
                                     <Trash2 
                                         color="white"
