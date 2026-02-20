@@ -35,7 +35,9 @@ export default function PlaceholderAttr({
         if (!state) return;
 
         const currentPlaceholder = placeholders[state.pageIndex]?.find((element) => element.id === state.id);
+
         if (currentPlaceholder?.style) setFontStyleId(currentPlaceholder.style);
+        if (currentPlaceholder?.alignment) setFontAlignment(currentPlaceholder.alignment);
     }, [state, placeholders]);
 
     return (
